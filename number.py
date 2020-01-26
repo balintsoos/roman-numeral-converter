@@ -13,10 +13,21 @@ numeralMapping = {
 def toArabicNumeral(romanNumeral):
   return numeralMapping.get(romanNumeral.upper())
 
+def summerize(arabicNumerals):
+  sum = 0
+  for previous, current in zip(arabicNumerals, arabicNumerals[1:]):
+    if previous < current:
+      sum += (-1 * current)
+    else:
+      sum += current
+  return sum
+
 def fromRoman(romanNumber):
   romanNumerals = list(romanNumber)
   arabicNumerals = map(toArabicNumeral, romanNumerals)
-  arabicNumber = reduce(lambda prev, curr: prev + curr, arabicNumerals, 0)
+  arabicNumber = summerize(list(arabicNumerals))
   return arabicNumber
 
-print(fromRoman('MDCLXVI')) # 1666
+# print(fromRoman('MDCLXVI')) # 1666
+print(fromRoman('XIV'))
+
